@@ -1,4 +1,12 @@
-function TrajectoryPlanning(handles)
+function Path(handles)
+cla(handles.q,'reset');
+set(handles.q,'visible','on');
+%
+cla(handles.v,'reset');
+set(handles.v,'visible','on');
+%
+cla(handles.a,'reset');
+set(handles.a,'visible','on');
 %% Lấy giá trị từ GUI
 a2 = str2num(get(handles.edit__a2, 'String')); 
 a3 = str2num(get(handles.edit__a3, 'String')); 
@@ -6,6 +14,8 @@ d = str2num(get(handles.edit__d, 'String'));
 % theta1 = str2num(get(handles.edit_theta1,'String'))*pi/180;
 % theta2 = str2num(get(handles.edit_theta2,'String'))*pi/180;
 % theta3 = str2num(get(handles.edit_theta3,'String'))*pi/180;
+v_max     = str2num(get(handles.v_max,'String'));
+a_max     = str2num(get(handles.a_max,'String'));
 %% Old_Position
 x1     = str2num(get(handles.px1,'String'));
 y1     = str2num(get(handles.py1,'String'));
@@ -14,17 +24,94 @@ z1     = str2num(get(handles.pz1,'String'));
 x2     = str2num(get(handles.px2,'String'));
 y2     = str2num(get(handles.py2,'String'));
 z2     = str2num(get(handles.pz2,'String'));
+%% đường thẳng AB
+A = [x1, y1, z1];  % Tọa độ điểm A
+B = [x2, y2, z2];  % Tọa độ điểm B
 %% qmax
 % cal distance
-q_max = ((x1 - x2)^2+(y1 - y2)^2+(z1 - z2)^2)^(1/2)
-handles.q_max_val.String  = num2str(round(q_max,2));
-%% Animation
-x_a=linspace(x1,x2,1000);
-y_a=linspace(y1,y2,1000);
-z_a=linspace(z1,z2,1000);
+qf = ((x1 - x2)^2+(y1 - y2)^2+(z1 - z2)^2)^(1/2);
+set(handles.q_max, 'string', num2str(round(qf,2)));
+% v_max=10;
+% a_max=5;
+%qf=80;
+
+tb = v_max/a_max;
+
+    tf = (qf - v_max*tb)/(v_max) + 2*tb;
+
+%     t       = 0:0.1:tf;
+%     lengthT = length(t);
+%     q = zeros(lengthT,1);
+%     v = zeros(lengthT,1);
+%     a = zeros(lengthT,1);
 %%
-step=10;
-for i=1:(1000/step)
+step = 10;
+num_steps = 1000 / step;  % Số bước tính toán
+% t       = 0:0.01:tf;
+% lengthT = length(t);
+% Khởi tạo lại các vector q, v, a với số phần tử phù hợp
+t = linspace(0, tf, num_steps);  % Tạo vector thời gian với num_steps phần tử
+q = zeros(num_steps, 1);
+v = zeros(num_steps, 1);
+a = zeros(num_steps, 1);
+    %%
+  for i = 1:num_steps
+    % Cập nhật giá trị thời gian t
+    t_current = t(i);
+
+    if t_current <= tb
+        q(i) = a_max * t_current^2 / 2;
+        v(i) = a_max * t_current;
+        a(i) = a_max;
+    elseif t_current <= tf - tb
+        q(i) = (qf - v_max * tf) / 2 + v_max * t_current;
+        v(i) = v_max;
+        a(i) = 0;
+    elseif t_current <= tf
+        q(i) = qf - a_max * (tf - t_current)^2 / 2;
+        v(i) = a_max * (tf - t_current);
+        a(i) = -a_max;
+    end
+      %%
+% cla(handles.q,'reset');
+% hold(handles.q,'on');
+% grid(handles.q,'on');
+% %
+% cla(handles.v,'reset');
+% hold(handles.v,'on');
+% grid(handles.v,'on');
+% %
+% cla(handles.a,'reset');
+% hold(handles.a,'on');
+% grid(handles.a,'on');
+%% q
+xlabel(handles.q,'time');
+ylabel(handles.q,'position');
+plot(handles.q,t,q,'lineWidth',0.5);
+%% v
+xlabel(handles.v,'time');
+ylabel(handles.v,'velocity');
+plot(handles.v,t,v,'lineWidth',0.5);
+%% a
+% xlabel(handles.a,'time');
+% ylabel(handles.a,'acc');
+% plot(handles.a,t,a,'lineWidth',0.5);
+
+%%
+lambda = q(i) / qf;
+C = A + lambda * (B - A);
+x3 = C(1);
+y3 = C(2);
+z3 = C(3);
+%%
+
+%% Animation
+x_a=linspace(x1,x3,1000);
+y_a=linspace(y1,y3,1000);
+z_a=linspace(z1,z3,1000);
+%%
+% step=1000;
+% for i=1:(1000/step)
    pWx=x_a(i*step);
    pWy=y_a(i*step);
    pWz=z_a(i*step);
@@ -75,7 +162,12 @@ pz_a(i)=p3(3);
     set(handles.edit_theta1, 'string', num2str(theta1*180/pi));
     set(handles.edit_theta2, 'string', num2str(theta2*180/pi));
     set(handles.edit_theta3, 'string', num2str(theta3*180/pi));
-
+    %%
+%     theta1_g(i*step)=theta1;
+%     xlabel(handles.a,'time');
+%     ylabel(handles.a,'position');
+%     plot(handles.a,t,theta1_g,'lineWidth',0.5);
+    %%
     if handles.checkbox_coordinate_0.Value
     plot_coordinate(0,0,0,A0_0,'0');
     end
@@ -110,5 +202,15 @@ pz_a(i)=p3(3);
     rotate3d(handles.axes1, 'on');
 
 
-end
+% end
+
+ end
+
+%     plot(t,q);
+%     hold on;
+%     plot(t,v);
+%     hold on;
+%     plot(t,a);
+%     hold on;
+%     grid on;
 end

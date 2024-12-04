@@ -22,7 +22,7 @@ function varargout = abc(varargin)
 
 % Edit the above text to modify the response to help abc
 
-% Last Modified by GUIDE v2.5 02-Dec-2024 15:43:35
+% Last Modified by GUIDE v2.5 05-Dec-2024 02:58:44
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -839,3 +839,80 @@ function trajectory_planning_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 TrajectoryPlanning(handles);
+
+
+
+function v_max_Callback(hObject, eventdata, handles)
+% hObject    handle to v_max (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of v_max as text
+%        str2double(get(hObject,'String')) returns contents of v_max as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function v_max_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to v_max (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function a_max_Callback(hObject, eventdata, handles)
+% hObject    handle to a_max (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of a_max as text
+%        str2double(get(hObject,'String')) returns contents of a_max as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function a_max_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to a_max (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function q_max_Callback(hObject, eventdata, handles)
+% hObject    handle to q_max (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of q_max as text
+%        str2double(get(hObject,'String')) returns contents of q_max as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function q_max_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to q_max (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on button press in path.
+function path_Callback(hObject, eventdata, handles)
+% hObject    handle to path (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+Path(handles);
