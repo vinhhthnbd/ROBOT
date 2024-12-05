@@ -77,7 +77,7 @@ axes(handles.axes1);
     title('Robot Articulated Arm - 3DOF');
 
     %VeHop(handles,0,0,0,0.6,0.6,0.15,[65, 170, 196]/255)
-    VeHinhTru(handles,0,0,0,0.8,0.05,[69, 170, 120]/255);
+    VeHinhTru(handles,0,0,0,0.3,0.05,[69, 170, 120]/255);
     % Gán giá trị vào các ô trong GUI
 set(handles.edit_theta1, 'string', num2str(theta1*180/pi));
 set(handles.edit_theta2, 'string', num2str(theta2*180/pi));
@@ -109,7 +109,7 @@ set(handles.edit_theta3, 'string', num2str(theta3*180/pi));
     plot3(p2(1), p2(2), p2(3), 'go', 'MarkerSize', 8, 'MarkerFaceColor', 'g'); % Khớp 2
     plot3(p3(1), p3(2), p3(3), 'bo', 'MarkerSize', 8, 'MarkerFaceColor', 'b'); % Đầu cuối
     
-    xlim([-3 3]); ylim([-3 3]); zlim([0 3]);
+    xlim([-3 3]); ylim([-3 3]); zlim([-1 3]);
     hold off;
     rotate3d(handles.axes1, 'on');
 

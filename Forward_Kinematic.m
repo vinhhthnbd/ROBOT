@@ -69,7 +69,7 @@ axes(handles.axes1);
     title('Robot Articulated Arm - 3DOF');
 
     %VeHop(handles,0,0,0,0.6,0.6,0.15,[65, 170, 196]/255)
-    VeHinhTru(handles,0,0,0,0.8,0.05,[69, 170, 120]/255);
+    VeHinhTru(handles,0,0,0,0.3,0.05,[69, 170, 120]/255);
 
 
     if handles.checkbox_coordinate_0.Value
@@ -99,7 +99,7 @@ axes(handles.axes1);
     plot3(p3(1), p3(2), p3(3), 'bo', 'MarkerSize', 8, 'MarkerFaceColor', 'b'); % Đầu cuối
    
 
-    xlim([-3 3]); ylim([-3 3]); zlim([0 3]);
+    xlim([-3 3]); ylim([-3 3]); zlim([-1 3]);
     hold off;
     rotate3d(handles.axes1, 'on');
 end

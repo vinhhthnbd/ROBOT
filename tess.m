@@ -1,4 +1,4 @@
-function Path(handles)
+function tess(handles)
 cla(handles.q,'reset');
 set(handles.q,'visible','on');
 %
@@ -6,6 +6,8 @@ cla(handles.v,'reset');
 set(handles.v,'visible','on');
 %
 cla(handles.a,'reset');
+hold(handles.a, 'on');
+grid(handles.a, 'on');
 set(handles.a,'visible','on');
 %% Lấy giá trị từ GUI
 a2 = str2num(get(handles.edit__a2, 'String')); 
@@ -54,6 +56,9 @@ t = linspace(0, tf, num_steps);  % Tạo vector thời gian với num_steps ph�
 q = zeros(num_steps, 1);
 v = zeros(num_steps, 1);
 a = zeros(num_steps, 1);
+px_a = zeros(1, num_steps);
+py_a = zeros(1, num_steps);
+pz_a = zeros(1, num_steps);
     %%
   for i = 1:num_steps
     % Cập nhật giá trị thời gian t
@@ -93,11 +98,13 @@ xlabel(handles.v,'time');
 ylabel(handles.v,'velocity');
 plot(handles.v,t,v,'lineWidth',0.5);
 %% a
-% xlabel(handles.a,'time');
-% ylabel(handles.a,'acc');
-% plot(handles.a,t,a,'lineWidth',0.5);
+xlabel(handles.theta1,'time');
+ylabel(handles.theta1,'acc');
+plot(handles.theta1,t,a,'lineWidth',0.5);
 
 %%
+step=1000;
+for b=1:(1000/step)
 lambda = q(i) / qf;
 C = A + lambda * (B - A);
 x3 = C(1);
@@ -111,10 +118,13 @@ y_a=linspace(y1,y3,1000);
 z_a=linspace(z1,z3,1000);
 %%
 % step=1000;
-% for i=1:(1000/step)
-   pWx=x_a(i*step);
-   pWy=y_a(i*step);
-   pWz=z_a(i*step);
+% for b=1:(1000/step)
+   pWx=x_a(b*step);
+   pWy=y_a(b*step);
+   pWz=z_a(b*step);
+%    pWx=x_a(i);
+%    pWy=y_a(i);
+%    pWz=z_a(i);
 %% Inverse_Kinematic
 c3 = (pWx^2 + pWy^2 + (pWz - d)^2 - a2^2 - a3^2) / (2 * a2 * a3);
 s3 = sqrt(1 - c3^2);
@@ -143,9 +153,9 @@ pc = [0;0;0]';
 [p3, o3] = cal_pose(A0_3,p0);
 p_robot = [p1 p2 p3]';
 %%
-px_a(i)=p3(1);
-py_a(i)=p3(2);
-pz_a(i)=p3(3);
+px_a(b)=p3(1);
+py_a(b)=p3(2);
+pz_a(b)=p3(3);
 %% Update_Data
 
     axes(handles.axes1);
@@ -181,8 +191,8 @@ pz_a(i)=p3(3);
     plot_coordinate(p_robot(3,1),p_robot(3,2),p_robot(3,3),A0_3,'3');    
     end
 %     if handles.checkbox_trajectory.Value
-    plot3(handles.axes1,px_a,py_a,pz_a,'r','lineWidth',1);
-    plot3(handles.axes1,[x1 x2],[y1 y2],[z1 z2],'b','lineWidth',1);
+    %plot3(handles.axes1,px_a,py_a,pz_a,'r','lineWidth',1);
+    plot3(handles.axes1,[x1 x3],[y1 y3],[z1 z3],'b','lineWidth',1);
 %     end
 %
 
@@ -202,15 +212,11 @@ pz_a(i)=p3(3);
     rotate3d(handles.axes1, 'on');
 
 
-% end
+end
 
- end
-
-%     plot(t,q);
-%     hold on;
-%     plot(t,v);
-%     hold on;
-%     plot(t,a);
-%     hold on;
-%     grid on;
+   end
+% 
+% xlabel(handles.a,'time');
+% ylabel(handles.a,'acc');
+% plot(handles.a,t,a,'lineWidth',0.5);
 end

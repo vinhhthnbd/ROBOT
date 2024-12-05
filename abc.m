@@ -838,7 +838,7 @@ function trajectory_planning_Callback(hObject, eventdata, handles)
 % hObject    handle to trajectory_planning (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-TrajectoryPlanning(handles);
+Trajectory_Planning(handles);
 
 
 
@@ -915,4 +915,4 @@ function path_Callback(hObject, eventdata, handles)
 % hObject    handle to path (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-Path(handles);
+Path_Planning(handles);
