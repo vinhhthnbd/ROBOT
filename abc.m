@@ -22,7 +22,7 @@ function varargout = abc(varargin)
 
 % Edit the above text to modify the response to help abc
 
-% Last Modified by GUIDE v2.5 05-Dec-2024 02:58:44
+% Last Modified by GUIDE v2.5 06-Dec-2024 20:59:45
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -51,7 +51,10 @@ function abc_OpeningFcn(hObject, eventdata, handles, varargin)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 % varargin   command line arguments to abc (see VARARGIN)
-
+set(handles.edit__a2,'string', 1);
+set(handles.edit__a3,'string',1);
+set(handles.edit__d,'string',0.5);
+Home(handles);
 % Choose default command line output for abc
 % global plot_pos;
 % global myScara;
@@ -170,10 +173,10 @@ function edit_theta2_Callback(hObject, eventdata, handles)
 global theta2;
 theta2=get(handles.edit_theta2,'string');
 theta2=str2num(theta2);
-if (theta2<180)&(theta2>-180)
+if (theta2<=230)&(theta2>=-50)
     set(handles.slider_theta2,'value',theta2);
 else 
-    set(handles.warning,'string','you shoud enter required value(-180<theta2<180)')
+    set(handles.warning,'string','you shoud enter required value(-50<theta2<230)')
 end
 
 % --- Executes during object creation, after setting all properties.
@@ -388,9 +391,11 @@ function checkbox_fill_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
  % Callback này được gọi khi checkbox được chọn/bỏ chọn
-%      if hObject.Value  % Kiểm tra trạng thái của checkbox
-%          PlotWorkspace(handles)
-%      end
+    if handles.checkbox_fill.Value
+        PlotWorkspace(handles);
+    else
+        Forward_Kinematic(handles)
+    end
 
     % Cập nhật dữ liệu GUI
     %guidata(hObject, handles);
@@ -916,3 +921,25 @@ function path_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 Path_Planning(handles);
+
+
+% --- Executes on button press in checkbox_fill_1.
+function checkbox_fill_1_Callback(hObject, eventdata, handles)
+% hObject    handle to checkbox_fill_1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of checkbox_fill_1
+    if handles.checkbox_fill_1.Value
+        Plotworkspace1(handles);
+    else
+        Forward_Kinematic(handles)
+    end
+
+
+% --- Executes on button press in btn_reset.
+function btn_reset_Callback(hObject, eventdata, handles)
+% hObject    handle to btn_reset (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+Home(handles);

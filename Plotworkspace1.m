@@ -1,4 +1,4 @@
-function PlotWorkspace(handles)
+function Plotworkspace1(handles)
     hold on;
     % Lấy dữ liệu từ GUI
     a2 = str2double(get(handles.edit__a2, 'String'));
@@ -49,20 +49,19 @@ pc = [0;0;0]';
     % Vẽ hình cầu
     surf(X, Y, Z, 'FaceColor', 'cyan', 'FaceAlpha', 0.3, 'EdgeColor', 'none');
     %%
-    for theta1= 0:360
-    % DH Table
-    a = [0; a2];
-    alpha = [pi/2;0];
-    d = [d_val; 0];
-    theta = [theta1*pi/180; -50*pi/180];
-    %% HOMOGENEOUS_TRANSFORMATION_between_successive_DH_frames
-    A0_1 = DH(a(1),alpha(1),d(1),theta(1)) ;
-    A1_2 = DH(a(2),alpha(2),d(2),theta(2)) ;
-    A0_0=[1 0 0 ; 0 1 0 ; 0 0 1 ];
-    %T1 = A0_1;
-    A0_2 = A0_1 * A1_2;
-    p0 = [0;0;0];
-    [p2, o2] = cal_pose(A0_2,p0);
+%     % DH Table
+%     a = [0; a2];
+%     alpha = [pi/2;0];
+%     d = [d_val; 0];
+%     theta = [0*pi/180; -50*pi/180];
+%     %% HOMOGENEOUS_TRANSFORMATION_between_successive_DH_frames
+%     A0_1 = DH(a(1),alpha(1),d(1),theta(1)) ;
+%     A1_2 = DH(a(2),alpha(2),d(2),theta(2)) ;
+%     A0_0=[1 0 0 ; 0 1 0 ; 0 0 1 ];
+%     %T1 = A0_1;
+%     A0_2 = A0_1 * A1_2;
+%     p0 = [0;0;0];
+%     [p2, o2] = cal_pose(A0_2,p0);
     f = a3;  % Bán kính của hình cầu là chiều dài liên kết 2
 
 %     Dịch chuyển hình cầu đến vị trí khớp 1
@@ -72,7 +71,7 @@ pc = [0;0;0]';
     C = C * f + p2(3);
 
 %     Vẽ hình cầu
-    surf(A, B, C, 'FaceColor', [200, 150, 200]/255, 'FaceAlpha', 0.01, 'EdgeColor', 'none');
+    surf(A, B, C, 'FaceColor', [1, 1, 1]/255, 'FaceAlpha', 0.3, 'EdgeColor', 'none');
     [A, B, C] = sphere;
-    end
+    
 end

@@ -10,6 +10,7 @@ theta1 = str2num(get(handles.edit_theta1,'String'))*pi/180;
 theta2 = str2num(get(handles.edit_theta2,'String'))*pi/180;
 theta3 = str2num(get(handles.edit_theta3,'String'))*pi/180;
 % Tính toán khoảng cách từ điểm tới gốc (end-effector position)
+
 distance = sqrt(pWx^2 + pWy^2 + (pWz-d)^2);
 
 % Kiểm tra điều kiện
@@ -95,21 +96,21 @@ set(handles.edit_theta3, 'string', num2str(theta3*180/pi));
     if handles.checkbox_coordinate_3.Value
     plot_coordinate(p_robot(3,1),p_robot(3,2),p_robot(3,3),A0_3,'3');    
     end
-%     if handles.checkbox_fill.Value
-%     PlotWorkspace(handles);
-%     end
     % Vẽ các liên kết giữa các khớp
     % plot_base(handles);
-    plot3([p0(1) p1(1)], [p0(2) p1(2)], [p0(3) p1(3)], 'r-', 'LineWidth', 5); % Liên kết 1
-    plot3([p1(1) p2(1)], [p1(2) p2(2)], [p1(3) p2(3)], 'g-', 'LineWidth', 5); % Liên kết 2
-    plot3([p2(1) p3(1)], [p2(2) p3(2)], [p2(3) p3(3)], 'b-', 'LineWidth', 5); % Liên kết 3
+    plot3([p0(1) p1(1)], [p0(2) p1(2)], [p0(3) p1(3)], 'r-', 'LineWidth', 8); % Liên kết 1
+    plot3([p1(1) p2(1)], [p1(2) p2(2)], [p1(3) p2(3)], 'g-', 'LineWidth', 8); % Liên kết 2
+    plot3([p2(1) p3(1)], [p2(2) p3(2)], [p2(3) p3(3)], 'b-', 'LineWidth', 8); % Liên kết 3
     % Vẽ các điểm khớp
     %plot3(p0(1), p0(2), p0(3), 'ko', 'MarkerSize', 8, 'MarkerFaceColor', 'k'); % Gốc
     plot3(p1(1), p1(2), p1(3), 'ro', 'MarkerSize', 8, 'MarkerFaceColor', 'r'); % Khớp 1
     plot3(p2(1), p2(2), p2(3), 'go', 'MarkerSize', 8, 'MarkerFaceColor', 'g'); % Khớp 2
     plot3(p3(1), p3(2), p3(3), 'bo', 'MarkerSize', 8, 'MarkerFaceColor', 'b'); % Đầu cuối
+    drawJoint(handles.axes1,theta1, p1(1), p1(2), p1(3), 0.15, 0.4, [0/255, 40/255, 50/255]) ;
+    drawJoint(handles.axes1,theta1, p2(1), p2(2), p2(3), 0.15, 0.4, [0/255, 40/255, 50/255]) ;
+    drawJoint(handles.axes1,theta1, p3(1), p3(2), p3(3), 0.15, 0.25, [0/255, 40/255, 50/255]) ;
     
-    xlim([-3 3]); ylim([-3 3]); zlim([-1 3]);
+    xlim([-3 3]); ylim([-3 3]); zlim([-2 3]);
     hold off;
     rotate3d(handles.axes1, 'on');
 

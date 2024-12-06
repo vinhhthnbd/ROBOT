@@ -26,6 +26,7 @@ set(handles.q_max, 'string', num2str(round(qf,2)));
 
 tb = v_max / a_max;
 tf = (qf - v_max * tb) / v_max + 2 * tb;
+
 step = 10;
 t = linspace(0, tf, 1000);
 
@@ -140,15 +141,18 @@ for i = 1:(1000 / step)
     %%
     VeHinhTru(handles,0,0,0,0.3,0.05,[69, 170, 120]/255);
     % Vẽ các liên kết giữa các khớp
-    plot3([p0(1) p1(1)], [p0(2) p1(2)], [p0(3) p1(3)], 'r-', 'LineWidth', 5);
-    plot3([p1(1) p2(1)], [p1(2) p2(2)], [p1(3) p2(3)], 'g-', 'LineWidth', 5);
-    plot3([p2(1) p3(1)], [p2(2) p3(2)], [p2(3) p3(3)], 'b-', 'LineWidth', 5);
+    plot3([p0(1) p1(1)], [p0(2) p1(2)], [p0(3) p1(3)], 'r-', 'LineWidth', 8);
+    plot3([p1(1) p2(1)], [p1(2) p2(2)], [p1(3) p2(3)], 'g-', 'LineWidth', 8);
+    plot3([p2(1) p3(1)], [p2(2) p3(2)], [p2(3) p3(3)], 'b-', 'LineWidth', 8);
     plot3(p1(1), p1(2), p1(3), 'ro', 'MarkerSize', 8, 'MarkerFaceColor', 'r');
     plot3(p2(1), p2(2), p2(3), 'go', 'MarkerSize', 8, 'MarkerFaceColor', 'g');
     plot3(p3(1), p3(2), p3(3), 'bo', 'MarkerSize', 8, 'MarkerFaceColor', 'b');
+    drawJoint(handles.axes1,theta1, p1(1), p1(2), p1(3), 0.15, 0.4, [0/255, 40/255, 50/255]) ;
+    drawJoint(handles.axes1,theta1, p2(1), p2(2), p2(3), 0.15, 0.4, [0/255, 40/255, 50/255]) ;
+    drawJoint(handles.axes1,theta1, p3(1), p3(2), p3(3), 0.15, 0.25, [0/255, 40/255, 50/255]) ;
     xlim([-3 3]);
     ylim([-3 3]);
-    zlim([-1 3]);
+    zlim([-2 3]);
     hold off;
     rotate3d(handles.axes1, 'on');
     %%
@@ -184,16 +188,16 @@ for i = 1:(1000 / step)
     grid(handles.theta2_dot, 'on');
     hold(handles.theta2_dot,'on');
 
-    cla(handles.theta2_dot,'reset');
-    grid(handles.theta2_dot, 'on');
-    hold(handles.theta2_dot,'on');
+    cla(handles.theta3_dot,'reset');
+    grid(handles.theta3_dot, 'on');
+    hold(handles.theta3_dot,'on');
     %%
     xlabel(handles.a,'time');
     ylabel(handles.a,'acceleration');
     plot(handles.a,time_a,acc_a,'lineWidth',0.5);
 
     xlabel(handles.q,'time');
-    ylabel(handles.q,'position');
+    ylabel(handles.q,'Q');
     plot(handles.q,time_a,q_a,'lineWidth',0.5);
 
     xlabel(handles.v,'time');
@@ -205,7 +209,7 @@ for i = 1:(1000 / step)
     plot(handles.theta1,time_a,theta1_g * 180/pi,'lineWidth',0.5);
 
     xlabel(handles.theta1_dot,'time');
-    ylabel(handles.theta1_dot,'theta1');
+    ylabel(handles.theta1_dot,'theta1_ dot');
     plot(handles.theta1_dot,time_a,theta1_dot* 180/pi,'lineWidth',0.5);
 
     
@@ -214,15 +218,15 @@ for i = 1:(1000 / step)
     plot(handles.theta2,time_a,theta2_g * 180/pi,'lineWidth',0.5);
 
     xlabel(handles.theta2_dot,'time');
-    ylabel(handles.theta2_dot,'theta1');
+    ylabel(handles.theta2_dot,'theta2_ dot');
     plot(handles.theta2_dot,time_a,theta2_dot* 180/pi,'lineWidth',0.5);
 
     xlabel(handles.theta3_dot,'time');
-    ylabel(handles.theta3_dot,'theta1');
+    ylabel(handles.theta3_dot,'theta3_ dot');
     plot(handles.theta3_dot,time_a,theta3_dot* 180/pi,'lineWidth',0.5);
 
     xlabel(handles.theta3,'time');
-    ylabel(handles.theta3,'theta1');
+    ylabel(handles.theta3,'theta3');
     plot(handles.theta3,time_a,theta3_g * 180/pi,'lineWidth',0.5);
 
 end

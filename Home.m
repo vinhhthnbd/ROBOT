@@ -1,4 +1,4 @@
-function T = Forward_Kinematic(handles)
+function T = Home(handles)
 %% Update_Data
 % Get parameters from GUI
 a2 =    str2num(get(handles.edit__a2,'String')); 
@@ -7,9 +7,9 @@ d=      str2num(get(handles.edit__d,'String'));
 % a2=1;
 % a3=1;
 % d=1;
-theta1 = str2num(get(handles.edit_theta1,'String'))*pi/180;
-theta2 = str2num(get(handles.edit_theta2,'String'))*pi/180;
-theta3 = str2num(get(handles.edit_theta3,'String'))*pi/180;
+theta1 = 0;
+theta2 = 0;
+theta3 = 0;
 %% DH_Table
 a     = [0    ; a2     ;  a3     ];
 alpha = [pi/2 ; 0      ;  0      ];
